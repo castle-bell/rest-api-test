@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from flask_restx import Api, Resource
 from collections import defaultdict
 
@@ -8,14 +8,21 @@ api = Api(app)
 usersInfo = {}
 usersStat = defaultdict(bool)
 
+# Homepage
+@api.route('/')
+class Homepage(Resource):
+    def get():
+        return render_template('homepage.html', name1="seongjong", name2="flask")
+
+
 @api.route('/hello')
 class HelloWorld(Resource):
     def get(self):
         return {"hello": "world!"}
 
-@api.route('/hello/<string:name>', methods=['POST'])  # url pattern으로 name 설정
+@api.route('/hello/<string:name>', methods=['GET'])  # url pattern으로 name 설정
 class Hello(Resource):
-    def post(self, name):  # 멤버 함수의 파라미터로 name 설정
+    def get(self, name):  # 멤버 함수의 파라미터로 name 설정
         return {"message" : "Welcome, %s!" % name}
 
 
@@ -74,5 +81,6 @@ class Logout(Resource):
         usersStat[id] = False
         return "Logout"
 
-# if __name__ == "__main__": 
-#     app.run(debug=True, host='0.0.0.0', port=80)
+if __name__ == "__main__": 
+    app.run(debug=False)
+    # app.run(debug=True, host='0.0.0.0', port=81)
