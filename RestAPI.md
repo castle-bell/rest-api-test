@@ -14,3 +14,8 @@ Rest API
     - 표현
 
     * Rest Api 설계 시 주의할 점
+
+
+    * Reference
+    - https://www.youtube.com/watch?v=GMppyAPbLYk
+    
